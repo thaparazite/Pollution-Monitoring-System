@@ -23,7 +23,7 @@ function printEnvironmentData(data) {
 function displayOptions() {
 
     console.log('\n\n-------------------------------------------------------------');// print separator
-    console.log('\t *** Pollution Monitoring System ***');// print system title
+    console.log('\t    *** Pollution Monitoring System ***');// print system title
     console.log('-------------------------------------------------------------');// print separator
     console.log(' - Monitor Pollution Environment of Different Locations -');// print system description  
     console.log('-------------------------------------------------------------');// print separator
@@ -37,11 +37,14 @@ function displayOptions() {
     //
 }//end of displayOptions function
 
+/*
 // function to print environment data
 function printEnvironmentData(serviceTitle,data) {
     console.log(`\n${serviceTitle}`);// print service title
     console.table(data);// print data in table format
 }// end of printEnvironmentData function
+*/
+
 
 // main function
 function main() {
