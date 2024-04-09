@@ -1,10 +1,10 @@
-const grpc = require('grpc');// import grpc module
+const grpc = require('@grpc/grpc-js');// import grpc module
 const protoLoader = require('@grpc/proto-loader');// import protoLoader module
 const path = require('path');// import path module
 
 const PROTO_PATH = path.join(__dirname,'/../protos/pollution_tracker.proto');// path to proto file
 const packageDefinition = protoLoader.loadSync(PROTO_PATH);// load proto file
-const protoDescriptor = grpc.loadPackageDefinition(packageDefinition).pollution;// load pollution package 
+const environment_proto = grpc.loadPackageDefinition(packageDefinition).pollution;// load pollution package 
 
 // function that generates random pollution data
 function generateRandomData() {
@@ -36,3 +36,33 @@ function streamEnvironmentData(call) {
 
 }//end of streamEnvironmentData function
 
+// main function
+function main() {
+
+    // create a new server
+    const server = new grpc.Server();
+
+    // add the services to server
+    server.addService(environment_proto.EnvironmentServices.service,{
+        HospitalEnvironmentService: streamEnvironmentData,
+        BuildingEnvironmentService: streamEnvironmentData,
+        OfficeEnvironmentService: streamEnvironmentData
+    });// end of server.addService function
+
+    // bind server to port 50051
+    server.bind('localhost:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
+
+        if (err) {// if error occurs 
+            console.error(err);// display error message
+            return;// exit the function 
+        } else {
+            // display message that server is running on port 50051
+            console.log('Server is running on port: http://localhost:${port}');
+            server.start();// start the server
+        }// end of if-else statement
+
+    });// end of server.bind function
+
+}// end of main function
+
+main();// call main function
