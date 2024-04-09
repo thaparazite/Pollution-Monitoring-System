@@ -5,19 +5,6 @@ const path = require('path');// import path module
 const PROTO_PATH = path.join(__dirname,'/../protos/pollution_tracker.proto');// path to proto file
 const packageDefinition = protoLoader.loadSync(PROTO_PATH);// load proto file
 const environment_proto = grpc.loadPackageDefinition(packageDefinition).pollution;// load pollution package 
-/*
-// function to print environment data
-function printEnvironmentData(data) {
-
-    console.log(' Location ID: ' + data.locationId);
-    console.log(' Temperature: ' + data.temperature);
-    console.log(' Humidity:    ' + data.humidity);
-    console.log(' Air Quality: ' + data.airQuality);
-    console.log(' Noise Level: ' + data.noiseLevel);
-    console.log('');// empty line
-
-}// end of printEnvironmentData function
-*/
 
 // function to display options
 function displayOptions() {
@@ -34,16 +21,7 @@ function displayOptions() {
     console.log('\t4. All Services');// print  all services option
     console.log('-------------------------------------------------------------');// print separator
 
-    //
 }//end of displayOptions function
-
-/*
-// function to print environment data
-function printEnvironmentData(serviceTitle,data) {
-    console.log(`\n${serviceTitle}`);// print service title
-    console.table(data);// print data in table format
-}// end of printEnvironmentData function
-*/
 
 const readline = require('readline');// import readline module
 // create a readline interface
@@ -52,14 +30,14 @@ const rl = readline.createInterface({
     output: process.stdout
 });// end of readline interface
 
-
-var num;
+var num;// variable to store the number of the service selected by the user
 // main function
 function main() {
 
     // create a new client and connect to server running on port 50051 
     const client = new environment_proto.EnvironmentServices('localhost:50051',grpc.credentials.createInsecure());
 
+    // function to ask question to the user
     function askQuestion() {
 
         displayOptions();// display options
@@ -120,6 +98,7 @@ function main() {
             console.log(`\n${title}`);// print service title
             console.table(data);// print data in table format
 
+            // control the continue option
             if (counter1 === 1) {
                 console.log('-------------------------------------------------------------');// print separator
                 rl.question('Do you want to continue? (yes/no): ',(continueAnswer) => {
