@@ -49,7 +49,7 @@ function main() {
         OfficeEnvironmentService: streamEnvironmentData
     });// end of server.addService function
 
-    // bind server to port 50051
+    // bind server to listen for incoming requests from all networks 0.0.0.0 on port 50051 
     server.bindAsync('0.0.0.0:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
 
         if (err) {// if error occurs 
