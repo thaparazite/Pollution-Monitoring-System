@@ -19,16 +19,38 @@ function printEnvironmentData(data) {
 }// end of printEnvironmentData function
 */
 
+// function to display options
+function displayOptions() {
+
+    console.log('\n\n-------------------------------------------------------------');// print separator
+    console.log('\t *** Pollution Monitoring System ***');// print system title
+    console.log('-------------------------------------------------------------');// print separator
+    console.log(' - Monitor Pollution Environment of Different Locations -');// print system description  
+    console.log('-------------------------------------------------------------');// print separator
+    console.log('\t     - Display Options - ');// print options title
+    console.log('\t1. Hospital Environment Service');// print hospital service option
+    console.log('\t2. Building Environment Service');// print building service option
+    console.log('\t3. Office Environment Service');// print office service option
+    console.log('\t4. All Services');// print  all services option
+    console.log('-------------------------------------------------------------');// print separator
+
+    //
+}//end of displayOptions function
+
+// function to print environment data
 function printEnvironmentData(serviceTitle,data) {
-    console.log(`\n${serviceTitle}`);
-    console.table(data);
-}
+    console.log(`\n${serviceTitle}`);// print service title
+    console.table(data);// print data in table format
+}// end of printEnvironmentData function
 
 // main function
 function main() {
 
     // create a new client and connect to server running on port 50051 
     const client = new environment_proto.EnvironmentServices('localhost:50051',grpc.credentials.createInsecure());
+
+    // display options
+    displayOptions();
 
     // create a call to the hospital service
     const hospitalCall = client.HospitalEnvironmentService({});
