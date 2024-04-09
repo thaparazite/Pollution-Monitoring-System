@@ -21,18 +21,26 @@ function generateRandomData() {
 
 // function to stream pollution data
 function streamEnvironmentData(call) {
+    try {
+        // generate random data
+        const randomData = generateRandomData();
+        // send data to client
+        call.write({
+            locationId: randomData.locationId,
+            temperature: randomData.temperature,
+            humidity: randomData.humidity,
+            airQuality: randomData.airQuality,
+            noiseLevel: randomData.noiseLevel
+        });// end of call.write function
 
-    // generate random data
-    const randomData = generateRandomData();
+    } catch (error) {
+        console.error(`Error during streamEnvironmentData: ${error.message}`);
+        call.emit('error',error);
+    }// end of try-catch block
 
-    // send data to client
-    call.write({
-        locationId: randomData.locationId,
-        temperature: randomData.temperature,
-        humidity: randomData.humidity,
-        airQuality: randomData.airQuality,
-        noiseLevel: randomData.noiseLevel
-    });// end of call.write function
+    call.on('cancelled',() => {
+        console.log('The call was cancelled.');
+    });// end of call.on function
 
 }//end of streamEnvironmentData function
 

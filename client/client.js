@@ -43,12 +43,12 @@ function main() {
         displayOptions();// display options
 
         function askServiceQuestion() {
-            rl.question('Enter the number of the service you want to display: ',(answer) => {
+            rl.question(' Enter the number of the service you want to display: ',(answer) => {
                 num = parseInt(answer);// convert answer to integer
                 // validate the input 
                 if (isNaN(num) || num < 1 || num > 4) {
                     console.log('-------------------------------------------------------------');// print separator
-                    console.log('Invalid input. Please enter a number between 1 and 4.');
+                    console.log(' Invalid input. Please enter a number between 1 and 4.');
                     console.log('-------------------------------------------------------------');// print separator
                     askServiceQuestion(); // ask the question again
                     return;// exit the function
@@ -109,31 +109,8 @@ function main() {
             if (counter1 === 1) {
                 try {
                     console.log('-------------------------------------------------------------');// print separator
-
-                    /*
-
-                    rl.question('Do you want to continue? (yes/no): ',(continueAnswer) => {
-                        console.log('-------------------------------------------------------------');// print separator
-
-                        
-                        if (continueAnswer.toLowerCase() === 'yes') {
-                            askQuestion();// ask the question again
-                        } else {
-                            console.log('\t *** End of Pollution Monitoring System ***');// print end message
-                            console.log('-------------------------------------------------------------');// print separator
-                            rl.close();// close readline interface
-                            try {
-                                process.exit(0);// exit the process
-                            } catch (err) {
-                                console.error('Failed to exit process:',err);
-                            }// end of try catch
-                        }// end of if else
-                        
-                    });
-                    */
-
                     function askContinueQuestion() {
-                        rl.question('Do you want to continue? (yes/no): ',(continueAnswer) => {
+                        rl.question(' Do you want to continue? (yes/no): ',(continueAnswer) => {
                             console.log('-------------------------------------------------------------');// print separator
                             continueAnswer = continueAnswer.toLowerCase();
                             if (continueAnswer === 'yes') {
@@ -146,11 +123,11 @@ function main() {
                                     process.exit(0);// exit the process
                                 } catch (err) {
                                     // handle error if process fails to exit
-                                    console.error('Failed to exit process:',err);
+                                    console.error(' Failed to exit process:',err);
                                 }// end of try catch
                             } else {
                                 // console.log('-------------------------------------------------------------');// print separator
-                                console.log('Invalid input. Please enter "yes" or "no".');
+                                console.log(' Invalid input. Please enter "yes" or "no".');
                                 console.log('-------------------------------------------------------------');// print separator
                                 askContinueQuestion(); // ask the question again
                             }// end of if else
@@ -158,12 +135,19 @@ function main() {
                     }// end of askContinueQuestion function
                     askContinueQuestion();
                 } catch (err) {
-                    console.error('Failed to ask question:',err);
+                    console.error(' Failed to ask question:',err);
                 }// end of try catch
                 counter1 = 0;// reset counter1
             }// end of if block
         });// end of call.on
 
+        call.on('error',error => {
+            console.error(` Error during ${title}: ${error.message}`);
+        });// end of call.on
+
+        call.on('end',function () {
+            console.log(' Server has finished sending data');
+        });
     }// end of displayService function
 
     askQuestion();// call askQuestion function
