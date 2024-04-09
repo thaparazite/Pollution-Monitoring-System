@@ -5,7 +5,7 @@ package pollution;
 // Environment Data message
 message EnvironmentData{
 
-    string location_id = 1;   // id of the location, simulation of coordinates
+    string locationId = 1;   // id of the location, simulation of coordinates
     double temperature = 2;  // temperature data
     double humidity = 3;     // humidity data
     double air_quality = 4;   // air quality data
