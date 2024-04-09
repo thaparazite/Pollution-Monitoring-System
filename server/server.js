@@ -53,7 +53,7 @@ function main() {
     server.bindAsync('0.0.0.0:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
 
         if (err) {// if error occurs 
-            console.error(err);// display error message
+            console.log(err);// display error message
             return;// exit the function 
         } else {
             // display message that server is running on port 50051

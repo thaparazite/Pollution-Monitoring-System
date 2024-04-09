@@ -5,7 +5,7 @@ const path = require('path');// import path module
 const PROTO_PATH = path.join(__dirname,'/../protos/pollution_tracker.proto');// path to proto file
 const packageDefinition = protoLoader.loadSync(PROTO_PATH);// load proto file
 const environment_proto = grpc.loadPackageDefinition(packageDefinition).pollution;// load pollution package 
-
+/*
 // function to print environment data
 function printEnvironmentData(data) {
 
@@ -17,6 +17,12 @@ function printEnvironmentData(data) {
     console.log('');// empty line
 
 }// end of printEnvironmentData function
+*/
+
+function printEnvironmentData(serviceTitle,data) {
+    console.log(`\n${serviceTitle}`);
+    console.table(data);
+}
 
 // main function
 function main() {
@@ -27,21 +33,21 @@ function main() {
     // create a call to the hospital service
     const hospitalCall = client.HospitalEnvironmentService({});
     //listen for data from the server
-    hospitalCall.on('data',data => printEnvironmentData(data));
+    hospitalCall.on('data',data => printEnvironmentData('Hospital Environment Service',data));
     hospitalCall.on('end',() => console.log('Hospital data stream has ended'));
     hospitalCall.on('error',error => console.error(error));
 
     // create a call to the building service
     const buildingCall = client.BuildingEnvironmentService({});
     //listen for data from the server
-    buildingCall.on('data',data => printEnvironmentData(data));
+    buildingCall.on('data',data => printEnvironmentData('Building Environment Service',data));
     buildingCall.on('end',() => console.log('Building data stream has ended'));
     buildingCall.on('error',error => console.error(error));
 
     // create a call to the office service
     const officeCall = client.OfficeEnvironmentService({});
     //listen for data from the server
-    officeCall.on('data',data => printEnvironmentData(data));
+    officeCall.on('data',data => printEnvironmentData('OfficeEnvironmentService',data));
     officeCall.on('end',() => console.log('Office data stream has ended'));
     officeCall.on('error',error => console.error(error));
 
