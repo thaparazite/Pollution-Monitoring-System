@@ -45,13 +45,21 @@ function printEnvironmentData(serviceTitle,data) {
 }// end of printEnvironmentData function
 */
 
+const readline = require('readline');// import readline module
+// create a readline interface
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});// end of readline interface
+
+
 
 // main function
 function main() {
 
     // create a new client and connect to server running on port 50051 
     const client = new environment_proto.EnvironmentServices('localhost:50051',grpc.credentials.createInsecure());
-
+    /*
     // display options
     displayOptions();
 
@@ -75,6 +83,27 @@ function main() {
     officeCall.on('data',data => printEnvironmentData('OfficeEnvironmentService',data));
     officeCall.on('end',() => console.log('Office data stream has ended'));
     officeCall.on('error',error => console.error(error));
+    */
+
+
+    function askQuestion() {
+
+        displayOptions();// display options
+
+        rl.question('Enter the number of the service you want to display: ',(answer) => {
+
+            console.log('-------------------------------------------------------------');// print separator
+            switch (answer) {
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                default:
+            }// end of switch
+
+        });// end of rl.question
+
+    }
 
 }// end of main function
 
