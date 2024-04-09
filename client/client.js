@@ -59,32 +59,6 @@ function main() {
 
     // create a new client and connect to server running on port 50051 
     const client = new environment_proto.EnvironmentServices('localhost:50051',grpc.credentials.createInsecure());
-    /*
-    // display options
-    displayOptions();
-
-    // create a call to the hospital service
-    const hospitalCall = client.HospitalEnvironmentService({});
-    //listen for data from the server
-    hospitalCall.on('data',data => printEnvironmentData('Hospital Environment Service',data));
-    hospitalCall.on('end',() => console.log('Hospital data stream has ended'));
-    hospitalCall.on('error',error => console.error(error));
-
-    // create a call to the building service
-    const buildingCall = client.BuildingEnvironmentService({});
-    //listen for data from the server
-    buildingCall.on('data',data => printEnvironmentData('Building Environment Service',data));
-    buildingCall.on('end',() => console.log('Building data stream has ended'));
-    buildingCall.on('error',error => console.error(error));
-
-    // create a call to the office service
-    const officeCall = client.OfficeEnvironmentService({});
-    //listen for data from the server
-    officeCall.on('data',data => printEnvironmentData('OfficeEnvironmentService',data));
-    officeCall.on('end',() => console.log('Office data stream has ended'));
-    officeCall.on('error',error => console.error(error));
-    */
-
 
     function askQuestion() {
 
@@ -95,15 +69,45 @@ function main() {
             console.log('-------------------------------------------------------------');// print separator
             switch (answer) {
                 case '1':
+                    displayService(client,'HospitalEnvironmentService','Hospital Environment Service');// display hospital service
+                    break;
                 case '2':
+                    displayService(client,'BuildingEnvironmentService','Building Environment Service');// display building service
+                    break;
                 case '3':
+                    displayService(client,'OfficeEnvironmentService','Office Environment Service');// display office service
+                    break;
                 case '4':
+                    displayService(client,'HospitalEnvironmentService','Hospital Environment Service');// display hospital service
+                    displayService(client,'BuildingEnvironmentService','Building Environment Service');// display building service
+                    displayService(client,'OfficeEnvironmentService','Office Environment Service');// display office service
+                    break
                 default:
+                    console.log('Invalid Option. Enter a Number Between 1 and 4');// print error message
+                    console.log('-------------------------------------------------------------');// print separator
+                    askQuestion();// ask the question again
+                    return;// exit the function
             }// end of switch
 
         });// end of rl.question
 
-    }
+    }// end of askQuestion function
+
+    // function to display service
+    function displayService(client,service,title) {
+
+        const call = client[service]({});// create a call to the service
+
+        call.on('data',data => {
+
+            console.log(`\n${title}`);// print service title
+            console.table(data);// print data in table format
+
+        });// end of call.on
+
+    }// end of displayService function
+
+    askQuestion();// call askQuestion function
 
 }// end of main function
 
