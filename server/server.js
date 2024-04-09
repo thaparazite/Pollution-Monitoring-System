@@ -19,3 +19,10 @@ function generateRandomData() {
 
 }// end of generateRandomData function
 
+// function to stream pollution data
+function streamEnvironmentData() {
+
+
+
+}//end of streamEnvironmentData function
+
