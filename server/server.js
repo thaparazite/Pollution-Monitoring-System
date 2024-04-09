@@ -14,7 +14,7 @@ function generateRandomData() {
         temperature: ((Math.random() * 50 + 10).toFixed(4)),
         humidity: ((Math.random() * 100).toFixed(4)),
         airQuality: ((Math.random() * 100).toFixed(4)),
-        noiseLevel: ((Math.random() * 100).toFixed(4)),
+        noiseLevel: ((Math.random() * 100).toFixed(4))
     };// end of return statement
 
 }// end of generateRandomData function
@@ -50,15 +50,16 @@ function main() {
     });// end of server.addService function
 
     // bind server to port 50051
-    server.bind('localhost:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
+    server.bindAsync('0.0.0.0:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
 
         if (err) {// if error occurs 
             console.error(err);// display error message
             return;// exit the function 
         } else {
             // display message that server is running on port 50051
-            console.log('Server is running on port: http://localhost:${port}');
-            server.start();// start the server
+            console.log('Server is running on port: http://0.0.0.0:${port}');
+            // starting the server can be omitted
+            // server.start();// start the server
         }// end of if-else statement
 
     });// end of server.bind function

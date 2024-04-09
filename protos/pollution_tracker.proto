@@ -14,9 +14,9 @@ message EnvironmentData{
 }// end of EnvironmentData
 
 // Pollution Monitoring services
-services EnvironmentServices{
+service EnvironmentServices{
 
-    // hospital pollution monitor services
+    // Pollution Monitoring services
     rpc HospitalEnvironmentService(EnvironmentData) returns (stream EnvironmentData){}
 
     // building pollution monitor services
