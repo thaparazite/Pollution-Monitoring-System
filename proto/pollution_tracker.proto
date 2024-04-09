@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package pollution;
+
+// Environment Data message
+message EnvironmentData{
+
+    string locationId = 1;   // id of the location, simulation of coordinates
+    double temperature = 2;  // temperature data
+    double humidity = 3;     // humidity data
+    double airQuality = 4;   // air quality data
+    double noiseLevel = 5;   // noise level data
+
+}// end of EnvironmentData
+
+// Pollution Monitoring services
+services EnvironmentServices{
+
+    // hospital pollution monitor services
+    rpc HospitalEnvironmentService(EnvironmentData) returns (stream EnvironmentData){}
+
+    // building pollution monitor services
+    rpc BuildingEnvironmentService(EnvironmentData) returns (stream EnvironmentData){}
+
+    // office pollution monitor services
+    rpc OfficeEnvironmentService(EnvironmentData) returns (stream EnvironmentData){}
+
+}// end of EnvironmentServices
+
+
+}// end of EnvironmentServices
