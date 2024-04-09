@@ -127,7 +127,6 @@ function main() {
                     if (continueAnswer.toLowerCase() === 'yes') {
                         askQuestion();// ask the question again
                     } else {
-                        console.log('-------------------------------------------------------------');// print separator
                         console.log('\t *** End of Pollution Monitoring System ***');// print end message
                         console.log('-------------------------------------------------------------');// print separator
                         rl.close();// close readline interface
