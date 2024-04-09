@@ -20,9 +20,19 @@ function generateRandomData() {
 }// end of generateRandomData function
 
 // function to stream pollution data
-function streamEnvironmentData() {
+function streamEnvironmentData(call) {
 
+    // generate random data
+    const randomData = generateRandomData();
 
+    // send data to client
+    call.write({
+        locationId: randomData.locationId,
+        temperature: randomData.temperature,
+        humidity: randomData.humidity,
+        airQuality: randomData.airQuality,
+        noiseLevel: randomData.noiseLevel
+    });// end of call.write function
 
 }//end of streamEnvironmentData function
 
