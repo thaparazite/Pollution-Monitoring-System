@@ -7,6 +7,9 @@ The Pollution Monitoring System is a real-time monitoring solution designed to t
 This project addresses the growing concern over indoor air quality and its impact on human health and productivity. By continuously monitoring environmental parameters, the Pollution Monitoring System helps users detect potential pollutants or adverse conditions, allowing for timely interventions to improve indoor air quality and occupant comfort.
 
 ## Getting Started:
+### Note:
+This note indicates that the dependencies are already installed and advises users to skip those steps unless they encounter issues with broken dependencies. If necessary, they can refer back to the full installation steps provided. Let me know if you need further assistance!
+
 |**Step**|**Description**|
 |----|-----------|
 | 1  | Clone the repository to your local machine.|
