@@ -10,7 +10,7 @@ Getting Started:
 
     1. Clone the repository to your local machine.
     2. Ensure Node.js is installed on your system. If not, you can download it from 
-        <!-- [(https://nodejs.org/en/download/current)]. -->
+        <!-- https://nodejs.org/en/download/current -->
     3. Open a terminal or command prompt and navigate to the server directory.
     4. Install the required dependencies for the server by running npm install.
     5. Once the dependencies are installed, run the server by executing node server.js.
