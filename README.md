@@ -7,24 +7,24 @@ The Pollution Monitoring System is a real-time monitoring solution designed to t
 This project addresses the growing concern over indoor air quality and its impact on human health and productivity. By continuously monitoring environmental parameters, the Pollution Monitoring System helps users detect potential pollutants or adverse conditions, allowing for timely interventions to improve indoor air quality and occupant comfort.
 
 ## Getting Started:
-|Step|Description|
+|_Step_|_Description_|
 |----|-----------|
 | 1  | Clone the repository to your local machine.|
 | 2  | Ensure Node.js is installed on your system. If not, you can download it from [here](https://nodejs.org/en/download/current).|
 | 3  | Open a terminal or command prompt and navigate to the server directory.|
 | 4  | Install the required dependencies for the server by running npm install.
-# Install gRPC library 
+_Install gRPC library_ 
 npm install @grpc/grpc-js
 
-# Install proto-loader 
+_Install proto-loader_ 
 npm install @grpc/proto-loader|
 | 5  | Once the dependencies are installed, run the server by executing node server.js.|
 | 6  | Open another terminal or command prompt and navigate to the client directory.|
 | 7  | Install the required dependencies for the client by running npm install.
-# Install gRPC library 
+Install gRPC library 
 npm install @grpc/grpc-js
 
-# Install proto-loader 
+Install proto-loader 
 npm install @grpc/proto-loader|
 | 8  | After the dependencies are installed, run the client using node client.js.|
 | 9  | Follow the CLI prompts to select the desired environmental service and view real-time data.|
