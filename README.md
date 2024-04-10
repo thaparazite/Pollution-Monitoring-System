@@ -13,16 +13,13 @@ This project addresses the growing concern over indoor air quality and its impac
 | 2  | Ensure Node.js is installed on your system. If not, you can download it from [here](https://nodejs.org/en/download/current).|
 | 3  | Open a terminal or command prompt and navigate to the server directory.|
 | 4  | Install the required dependencies for the server:
-|4.1 | Install gRPC library: npm install @grpc/grpc-js
-|    |  2:Install proto-loader: npm install @grpc/proto-loader|
+|    |  1. Install gRPC library: npm install @grpc/grpc-js
+|    |  2. Install proto-loader: npm install @grpc/proto-loader|
 | 5  | Once the dependencies are installed, run the server by executing node server.js.|
 | 6  | Open another terminal or command prompt and navigate to the client directory.|
-| 7  | Install the required dependencies for the client by running npm install.
-Install gRPC library 
-npm install @grpc/grpc-js
-
-Install proto-loader 
-npm install @grpc/proto-loader|
+| 7  | Install the required dependencies for the client.
+|    |  1. Install gRPC library: npm install @grpc/grpc-js
+|    |  2. Install proto-loader: npm install @grpc/proto-loader|
 | 8  | After the dependencies are installed, run the client using node client.js.|
 | 9  | Follow the CLI prompts to select the desired environmental service and view real-time data.|
 
