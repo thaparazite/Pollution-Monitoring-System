@@ -20,10 +20,10 @@ This project addresses the growing concern over indoor air quality and its impac
 | 9  | Follow the CLI prompts to select the desired environmental service and view real-time data.|
 
 ## Support and Assistance:
-If you encounter any issues or have questions about the project, feel free to open an issue on GitHub or reach out to the project maintainer via email [x22195092@student.ncirl.ie].
+If you encounter any issues or have questions about the project, feel free to open an issue on GitHub or reach out to the project maintainer via email x22195092@student.ncirl.ie.
 
 ## Project Maintenance and Contributors:
-This project is maintained and contributed to by [Flaviu Vanca]. Contributions are welcome via pull requests, and all contributors are encouraged to follow the project's contribution guidelines outlined in the CONTRIBUTING.md file.
+This project is maintained and contributed to by [Flaviu Vanca](https://github.com/thaparazite). Contributions are welcome via pull requests, and all contributors are encouraged to follow the project's contribution guidelines outlined in the CONTRIBUTING.md file.
 
 ## License:
 This project doesn't require a license.
