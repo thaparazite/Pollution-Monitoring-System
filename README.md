@@ -1,6 +1,6 @@
-# Pollution-Monitoring-System 
+# **Pollution-Monitoring-System** 
 
-## Project Overview:
+## **Project Overview:**
 The Pollution Monitoring System is a real-time monitoring solution designed to track environmental conditions in various indoor settings such as hospitals, buildings, and offices. It collects data on temperature, humidity, air quality, and noise level, providing users with valuable insights into the health and safety of indoor environments. The application achieves this by simulating real data through the generation of random values for environmental parameters. This simulation allows users to experience the system's functionality and visualize potential scenarios without the need for physical sensors or external data sources.
 
 ## Project Significance:
