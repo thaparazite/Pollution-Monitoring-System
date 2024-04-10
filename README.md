@@ -17,7 +17,7 @@ This project addresses the growing concern over indoor air quality and its impac
 |    |  2. Install proto-loader: npm install @grpc/proto-loader|
 | 5  | Once the dependencies are installed, run the server by executing node server.js.|
 | 6  | Open another terminal or command prompt and navigate to the client directory.|
-| 7  | Install the required dependencies for the client.
+| 7  | Install the required dependencies for the client:
 |    |  1. Install gRPC library: npm install @grpc/grpc-js
 |    |  2. Install proto-loader: npm install @grpc/proto-loader|
 | 8  | After the dependencies are installed, run the client using node client.js.|
