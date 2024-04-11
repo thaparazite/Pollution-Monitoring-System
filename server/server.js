@@ -50,7 +50,7 @@ function streamEnvironmentData(call) {
     });
 
 }//end of streamEnvironmentData function
-
+//
 // main function
 function main() {
 
