@@ -45,7 +45,7 @@ function streamEnvironmentData(call) {
     // event listener for client to end the call
     call.on('cancelled',() => {
         console.log('-----------------------------');// print separator
-        console.log('The call was cancelled.');
+        console.log('The call was cancelled.');// display message that call was cancelled
         console.log('-----------------------------');// print separator
     });
 
@@ -85,5 +85,4 @@ function main() {
 }// end of main function
 
 main();// call main function
-
 //

@@ -24,15 +24,16 @@ function displayOptions() {
 }//end of displayOptions function
 
 const readline = require('readline');// import readline module
+
 // create a readline interface
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+    input: process.stdin,   // input comes from standard input
+    output: process.stdout  // output goes to standard output
 });// end of readline interface
 
 const os = require('os');// import os module
 
-var num;// variable to store the number of the service selected by the user
+
 // main function
 function main() {
 
@@ -56,9 +57,7 @@ function main() {
         }// end of if block
     }// end of for loop
 
-    // display the IP address
-    //console.log('\n\t *** Client with IP Address: ${ip} is Connected ***');// print IP address
-    console.log(`\n\t *** Client with IP Address: ${ip} is Connected ***`);
+    var num;// variable to store the number of the service selected by the user
 
     // function to ask question to the user
     function askQuestion() {
@@ -78,17 +77,17 @@ function main() {
                 }// end of if block
 
                 console.log('-------------------------------------------------------------');// print separator
-                switch (answer) {
-                    case '1':
+                switch (num) {
+                    case 1:
                         displayService(client,'HospitalEnvironmentService','Hospital Environment Service',{ ip });// display hospital service
                         break;// break the switch statement
-                    case '2':
+                    case 2:
                         displayService(client,'BuildingEnvironmentService','Building Environment Service',{ ip });// display building service
                         break;// break the switch statement
-                    case '3':
+                    case 3:
                         displayService(client,'OfficeEnvironmentService','Office Environment Service',{ ip });// display office service
                         break;// break the switch statement
-                    case '4':
+                    case 4:
                         displayService(client,'HospitalEnvironmentService','Hospital Environment Service',{ ip });// display hospital service
                         displayService(client,'BuildingEnvironmentService','Building Environment Service',{ ip });// display building service
                         displayService(client,'OfficeEnvironmentService','Office Environment Service',{ ip });// display office service
@@ -106,14 +105,14 @@ function main() {
     function displayService(client,service,title,options) {
 
         // Create metadata
-        const metadata = new grpc.Metadata();
-        const date = new Date();
-        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const dateStamp = date.toLocaleString('en-US',{ hour12: false });
-        metadata.add('client-ip',`${options.ip}; Calling service: ${service}; Timestamp: ${dateStamp} ${timeZone}`);
+        const metadata = new grpc.Metadata();// create metadata object
+        const date = new Date();// get the current date and time 
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;// get the time zone 
+        const dateStamp = date.toLocaleString('en-US',{ hour12: false });// get the date and time in the format: MM/DD/YYYY HH:MM:SS
+        metadata.add('client-ip',`${options.ip}; Calling service: ${service}; Timestamp: ${dateStamp} ${timeZone}`);// add metadata to the object 
 
 
-        // Make the gRPC call, passing the metadata as the second argument
+        // make the gRPC call, passing the metadata as the second argument
         const call = client[service]({},metadata);
 
         call.on('data',data => {
@@ -173,15 +172,31 @@ function main() {
         });// end of call.on
 
         call.on('error',error => {
-            console.log('\n-----------------------------------------------------------------------------');// print separator 
-            console.error(` Error during ${title}: ${error.message}`);
-            console.log('-----------------------------------------------------------------------------');// print separator
+            console.log('\n-------------------------------------------------------------------------------------------------------------------------------------------------------------------');// print separator 
+            console.error(` Error during ${title}: ${error.message}`);// print error message 
+            console.log('-------------------------------------------------------------------------------------------------------------------------------------------------------------------');// print separator
         });// end of call.on
 
         call.on('end',function () {
             console.log('---------------------------------------');// print separator 
-            console.log(' Server has finished sending data');
+            console.log(' Server has finished sending data');// print message
             console.log('---------------------------------------');// print separator
+            try {
+                // close the readline interface
+                rl.close();
+                console.log('-------------------------------------------------------------');// print separator
+                console.log('\t *** End of Pollution Monitoring System ***');// print end message
+                console.log('-------------------------------------------------------------');// print separator
+                process.exit(0);// exit the process
+            } catch (err) {
+                console.log('-------------------------------------------------------------');// print separator
+                // handle error if process fails to exit
+                console.error(' Failed to exit process:',err);
+                console.log('-------------------------------------------------------------');// print separator
+                console.log('\t *** End of Pollution Monitoring System ***');// print end message
+                console.log('-------------------------------------------------------------');// print separator
+                process.exit(1);// exit the process
+            }// end of try catch
         });
     }// end of displayService function
 
