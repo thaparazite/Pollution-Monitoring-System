@@ -45,7 +45,7 @@ function main() {
 
     // get the first non-internal IPv4 address
     let ip;// variable to store the IP address
-    for (let name of Object.keys(networkInterfaces)) {
+    for (let name of Object.keys(networkInterfaces)) {// iterate over the network interfaces
         for (let net of networkInterfaces[name]) {// iterate over the network interfaces
             if (!net.internal && net.family === 'IPv4') {// check if the network interface is not internal and is IPv4
                 ip = net.address;// get the IP address
@@ -67,8 +67,9 @@ function main() {
         function askServiceQuestion() {
             rl.question(' Enter the number of the service you want to display: ',(answer) => {
                 num = parseInt(answer);// convert answer to integer
+
                 // validate the input 
-                if (isNaN(num) || num < 1 || num > 4) {
+                if (isNaN(num) || (num < 1 || num > 4)) {
                     console.log('-------------------------------------------------------------');// print separator
                     console.log(' Invalid input. Please enter a number between 1 and 4.');
                     console.log('-------------------------------------------------------------');// print separator
@@ -108,29 +109,30 @@ function main() {
         const metadata = new grpc.Metadata();// create metadata object
         const date = new Date();// get the current date and time 
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;// get the time zone 
-        const dateStamp = date.toLocaleString('en-US',{ hour12: false });// get the date and time in the format: MM/DD/YYYY HH:MM:SS
+        const dateStamp = date.toLocaleString('en-IE',{ hour12: false });// get the date and time in the format: MM/DD/YYYY HH:MM:SS
         metadata.add('client-ip',`${options.ip}; Calling service: ${service}; Timestamp: ${dateStamp} ${timeZone}`);// add metadata to the object 
-
+        //
 
         // make the gRPC call, passing the metadata as the second argument
         const call = client[service]({},metadata);
 
+        const numOfServices = (Object.keys(environment_proto).length + 1);// get the number of services
+
         call.on('data',data => {
             /*
-             * control the continue option
+             * control when the continue option should be displayed
              * when the user selects option 4            
              *
              */
+
             if (num === 4) {
                 ++counter2;// increment counter2
-                if (counter2 === 3) {
-                    counter1 = 0;// reset counter1
-                    counter2 = 0;// reset counter2
-                    ++counter1;// increment counter1
-                }// end of if
+                if (counter2 === numOfServices) {
+                    counter1 = 1;// set counter1 to 1
+                }// end of if block
             } else {
-                ++counter1;// increment counter1
-            }// end of if else
+                ++counter1;// increment counter14
+            }// end of if block
 
             // print data in table format 
             console.log(`\n${title}`);// print service title
@@ -153,8 +155,10 @@ function main() {
                                 try {
                                     process.exit(0);// exit the process
                                 } catch (err) {
+                                    console.log('-------------------------------------------------------------');// print separator
                                     // handle error if process fails to exit
                                     console.error(' Failed to exit process:',err);
+                                    console.log('-------------------------------------------------------------');// print separator
                                 }// end of try catch
                             } else {
                                 console.log(' Invalid input. Please enter "yes" or "no".');
@@ -165,7 +169,9 @@ function main() {
                     }// end of askContinueQuestion function
                     askContinueQuestion();
                 } catch (err) {
+                    console.log('-------------------------------------------------------------');// print separator
                     console.error(' Failed to ask question:',err);
+                    console.log('-------------------------------------------------------------');// print separator
                 }// end of try catch
                 counter1 = 0;// reset counter1
             }// end of if block
