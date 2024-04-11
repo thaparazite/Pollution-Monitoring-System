@@ -30,12 +30,35 @@ const rl = readline.createInterface({
     output: process.stdout
 });// end of readline interface
 
+const os = require('os');// import os module
+
 var num;// variable to store the number of the service selected by the user
 // main function
 function main() {
 
     // create a new client and connect to server running on port 50051 
     const client = new environment_proto.EnvironmentServices('localhost:50051',grpc.credentials.createInsecure());
+
+    // get the network interfaces
+    const networkInterfaces = os.networkInterfaces();
+
+    // get the first non-internal IPv4 address
+    let ip;// variable to store the IP address
+    for (let name of Object.keys(networkInterfaces)) {
+        for (let net of networkInterfaces[name]) {// iterate over the network interfaces
+            if (!net.internal && net.family === 'IPv4') {// check if the network interface is not internal and is IPv4
+                ip = net.address;// get the IP address
+                break;// break the loop
+            }// end of if block
+        }// end of for loop
+        if (ip) {// check if IP address is found
+            break;// break the loop
+        }// end of if block
+    }// end of for loop
+
+    // display the IP address
+    //console.log('\n\t *** Client with IP Address: ${ip} is Connected ***');// print IP address
+    console.log(`\n\t *** Client with IP Address: ${ip} is Connected ***`);
 
     // function to ask question to the user
     function askQuestion() {
@@ -57,18 +80,18 @@ function main() {
                 console.log('-------------------------------------------------------------');// print separator
                 switch (answer) {
                     case '1':
-                        displayService(client,'HospitalEnvironmentService','Hospital Environment Service');// display hospital service
+                        displayService(client,'HospitalEnvironmentService','Hospital Environment Service',{ ip });// display hospital service
                         break;// break the switch statement
                     case '2':
-                        displayService(client,'BuildingEnvironmentService','Building Environment Service');// display building service
+                        displayService(client,'BuildingEnvironmentService','Building Environment Service',{ ip });// display building service
                         break;// break the switch statement
                     case '3':
-                        displayService(client,'OfficeEnvironmentService','Office Environment Service');// display office service
+                        displayService(client,'OfficeEnvironmentService','Office Environment Service',{ ip });// display office service
                         break;// break the switch statement
                     case '4':
-                        displayService(client,'HospitalEnvironmentService','Hospital Environment Service');// display hospital service
-                        displayService(client,'BuildingEnvironmentService','Building Environment Service');// display building service
-                        displayService(client,'OfficeEnvironmentService','Office Environment Service');// display office service
+                        displayService(client,'HospitalEnvironmentService','Hospital Environment Service',{ ip });// display hospital service
+                        displayService(client,'BuildingEnvironmentService','Building Environment Service',{ ip });// display building service
+                        displayService(client,'OfficeEnvironmentService','Office Environment Service',{ ip });// display office service
                         break;// break the switch statement
                 }// end of switch
             });// end of rl.question
@@ -80,9 +103,18 @@ function main() {
 
     var counter1 = 0,counter2 = 0;// initialize counters
     // function to display service
-    function displayService(client,service,title) {
+    function displayService(client,service,title,options) {
 
-        const call = client[service]({});// create a call to the service
+        // Create metadata
+        const metadata = new grpc.Metadata();
+        const date = new Date();
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const dateStamp = date.toLocaleString('en-US',{ hour12: false });
+        metadata.add('client-ip',`${options.ip}; Calling service: ${service}; Timestamp: ${dateStamp} ${timeZone}`);
+
+
+        // Make the gRPC call, passing the metadata as the second argument
+        const call = client[service]({},metadata);
 
         call.on('data',data => {
             /*
@@ -126,7 +158,6 @@ function main() {
                                     console.error(' Failed to exit process:',err);
                                 }// end of try catch
                             } else {
-                                // console.log('-------------------------------------------------------------');// print separator
                                 console.log(' Invalid input. Please enter "yes" or "no".');
                                 console.log('-------------------------------------------------------------');// print separator
                                 askContinueQuestion(); // ask the question again
@@ -142,11 +173,15 @@ function main() {
         });// end of call.on
 
         call.on('error',error => {
+            console.log('\n-----------------------------------------------------------------------------');// print separator 
             console.error(` Error during ${title}: ${error.message}`);
+            console.log('-----------------------------------------------------------------------------');// print separator
         });// end of call.on
 
         call.on('end',function () {
+            console.log('---------------------------------------');// print separator 
             console.log(' Server has finished sending data');
+            console.log('---------------------------------------');// print separator
         });
     }// end of displayService function
 

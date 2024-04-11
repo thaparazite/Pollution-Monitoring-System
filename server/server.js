@@ -1,5 +1,6 @@
 const grpc = require('@grpc/grpc-js');// import grpc module
 const protoLoader = require('@grpc/proto-loader');// import protoLoader module
+const { on } = require('events');
 const path = require('path');// import path module
 
 const PROTO_PATH = path.join(__dirname,'/../protos/pollution_tracker.proto');// path to proto file
@@ -22,6 +23,9 @@ function generateRandomData() {
 // function to stream pollution data
 function streamEnvironmentData(call) {
     try {
+        console.log('---------------------------------------------------------------------------------------------------------------------');// print separator
+        console.log('Client IP: ',call.metadata.get('client-ip')[0]);// display client IP address
+        console.log('---------------------------------------------------------------------------------------------------------------------');// print separator
         // generate random data
         const randomData = generateRandomData();
         // send data to client
@@ -38,9 +42,12 @@ function streamEnvironmentData(call) {
         call.emit('error',error);
     }// end of try-catch block
 
+    // event listener for client to end the call
     call.on('cancelled',() => {
+        console.log('-----------------------------');// print separator
         console.log('The call was cancelled.');
-    });// end of call.on function
+        console.log('-----------------------------');// print separator
+    });
 
 }//end of streamEnvironmentData function
 
@@ -57,6 +64,7 @@ function main() {
         OfficeEnvironmentService: streamEnvironmentData
     });// end of server.addService function
 
+
     // bind server to listen for incoming requests from all networks 0.0.0.0 on port 50051 
     server.bindAsync('0.0.0.0:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
 
@@ -64,8 +72,10 @@ function main() {
             console.log(err);// display error message
             return;// exit the function 
         } else {
+            console.log('-------------------------------------------------------------');// print separator
             // display message that server is running on port 50051
-            console.log('Server is running on port: http://0.0.0.0:${port}');
+            console.log('Server is running on port: http://0.0.0.0:' + port);
+            console.log('-------------------------------------------------------------');// print separator 
             // starting the server can be omitted
             // server.start();// start the server
         }// end of if-else statement
@@ -75,3 +85,5 @@ function main() {
 }// end of main function
 
 main();// call main function
+
+//
