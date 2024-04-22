@@ -33,12 +33,13 @@ const rl = readline.createInterface({
 
 const os = require('os');// import os module
 
-
 // main function
 function main() {
+    // IP address of the server
+    const CLIENT_ADDRESS = '127.0.0.1:50051';
 
     // create a new client and connect to server running on port 50051 
-    const client = new environment_proto.EnvironmentServices('localhost:50051',grpc.credentials.createInsecure());
+    const client = new environment_proto.EnvironmentServices(CLIENT_ADDRESS,grpc.credentials.createInsecure());
 
     // get the network interfaces
     const networkInterfaces = os.networkInterfaces();
@@ -164,9 +165,11 @@ function main() {
                                 console.log('-------------------------------------------------------------');// print separator
                                 askContinueQuestion(); // ask the question again
                             }// end of if else
-                        });
+                        });// end of rl.question function
                     }// end of askContinueQuestion function
-                    askContinueQuestion();
+
+                    askContinueQuestion();// call askContinueQuestion function
+
                 } catch (err) {
                     console.log('-------------------------------------------------------------');// print separator
                     console.error(' Failed to ask question:',err);
@@ -176,12 +179,14 @@ function main() {
             }// end of if block
         });// end of call.on
 
+        // event listener for error event 
         call.on('error',error => {
             console.log('\n-------------------------------------------------------------------------------------------------------------------------------------------------------------------');// print separator 
             console.error(` Error during ${title}: ${error.message}`);// print error message 
             console.log('-------------------------------------------------------------------------------------------------------------------------------------------------------------------');// print separator
         });// end of call.on
 
+        // event listener for end event
         call.on('end',function () {
             console.log('---------------------------------------');// print separator 
             console.log(' Server has finished sending data');// print message
@@ -202,7 +207,7 @@ function main() {
                 console.log('-------------------------------------------------------------');// print separator
                 process.exit(1);// exit the process
             }// end of try catch
-        });
+        });// end of call.on function
     }// end of displayService function
 
     askQuestion();// call askQuestion function

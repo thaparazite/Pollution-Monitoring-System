@@ -65,9 +65,10 @@ function main() {
         OfficeEnvironmentService: streamEnvironmentData
     });// end of server.addService function
 
+    const SERVER_ADDRESS = '127.0.0.1:50051';
 
-    // bind server to listen for incoming requests from all networks 0.0.0.0 on port 50051 
-    server.bindAsync('127.0.0.1:50051',grpc.ServerCredentials.createInsecure(),(err,port) => {
+    // bind server to address and start the server 
+    server.bindAsync(SERVER_ADDRESS,grpc.ServerCredentials.createInsecure(),(err,port) => {
 
         if (err) {// if error occurs 
             console.log(err);// display error message
@@ -75,7 +76,7 @@ function main() {
         } else {
             console.log('-------------------------------------------------------------');// print separator
             // display message that server is running on port 50051
-            console.log('Server is running on port: http://127.0.0.1:' + port);
+            console.log('Server is running on address: ',SERVER_ADDRESS);
             console.log('-------------------------------------------------------------');// print separator 
             // starting the server can be omitted
             // server.start();// start the server
