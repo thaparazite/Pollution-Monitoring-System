@@ -38,8 +38,9 @@ function streamEnvironmentData(call) {
         });// end of call.write function
 
     } catch (error) {
+        // display error message if error occurs
         console.error(`Error during streamEnvironmentData: ${error.message}`);
-        call.emit('error',error);
+        call.emit('error',error);// emit error event if error occurs
     }// end of try-catch block
 
     // event listener for client to end the call
@@ -47,7 +48,7 @@ function streamEnvironmentData(call) {
         console.log('-----------------------------');// print separator
         console.log('The call was cancelled.');// display message that call was cancelled
         console.log('-----------------------------');// print separator
-    });
+    });// end of call.on function
 
 }//end of streamEnvironmentData function
 //
@@ -85,4 +86,3 @@ function main() {
 }// end of main function
 
 main();// call main function
-//
