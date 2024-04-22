@@ -111,7 +111,6 @@ function main() {
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;// get the time zone 
         const dateStamp = date.toLocaleString('en-IE',{ hour12: false });// get the date and time in the format: MM/DD/YYYY HH:MM:SS
         metadata.add('client-ip',`${options.ip}; Calling service: ${service}; Timestamp: ${dateStamp} ${timeZone}`);// add metadata to the object 
-        //
 
         // make the gRPC call, passing the metadata as the second argument
         const call = client[service]({},metadata);
