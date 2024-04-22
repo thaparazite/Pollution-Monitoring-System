@@ -95,7 +95,7 @@ function main() {
                         break;// break the switch statement
                 }// end of switch
             });// end of rl.question
-        }
+        }// end of askServiceQuestion function
 
         askServiceQuestion();// call askServiceQuestion function
 
